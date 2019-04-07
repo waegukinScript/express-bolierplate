@@ -1,45 +1,44 @@
 
 header.header-area
-		div.container
-			div.header-wrap
-				div.header-top.d-flex.justify-content-between.align-items-center.navbar-expand-md
-					div.col.menu-left
-						a.active(href="index.html") Home
-						a(href="menu.html") menu
-						a(href="about.html") about
-					
-					div.col-3.logo
-					  a(href="index.html")
-             // img.mx-auto(src="img/logo.png", alt="")
-            nav.col.navbar.navbar-expand-md.justify-content-end
-          	// Toggler/collapsibe Button
-						button.navbar-toggler(type="button", data-toggle="collapse", data-target="#collapsibleNavbar")
-							span.lnr.lnr-menu
+  .container
+    .header-wrap
+      .header-top.d-flex.justify-content-between.align-items-center.navbar-expand-md
+        .col.menu-left
+          a.active(href='index.html') Home
+          a(href='menu.html') menu
+          a(href='about.html') about
+        .col-3.logo
+          a(href='index.html')
+            //img.mx-auto(src='img/logo.png' alt='')
+        nav.col.navbar.navbar-expand-md.justify-content-end
+          // Toggler/collapsibe Button
+          button.navbar-toggler(type='button' data-toggle='collapse' data-target='#collapsibleNavbar')
+            span.lnr.lnr-menu
+          // Navbar links
+          #collapsibleNavbar.collapse.navbar-collapse.menu-right
+            ul.navbar-nav.justify-content-center.w-100
+              li.nav-item.hide-lg
+                a.nav-link(href='index.html') Home
+              li.nav-item.hide-lg
+                a.nav-link(href='menu.html') menu
+              li.nav-item.hide-lg
+                a.nav-link(href='about.html') about
+              // Dropdown
+              li.nav-item.dropdown
+                a#navbardrop.nav-link.dropdown-toggle(href='#' data-toggle='dropdown')
+                  | Pages
+                .dropdown-menu
+                  a.dropdown-item(href='contact.html') Contact
+                  a.dropdown-item(href='elements.html') Elements
+              li.nav-item.dropdown
+                a#navbardrop.nav-link.dropdown-toggle(href='#' data-toggle='dropdown')
+                  | Blog
+                .dropdown-menu
+                  a.dropdown-item(href='blog-home.html') Blog
+                  a.dropdown-item(href='blog-single.html') Blog Detail
+              li.nav-item
+                a.nav-link(href='gallery.html') Gallery
 
-						// Navbar links
-						div.collapse.navbar-collapse.menu-right#collapsibleNavbar
-							ul.navbar-nav.justify-content-center.w-100
-								li.nav-item.hide-lg
-									a.nav-link(href="index.html") Home
-								li.nav-item.hide-lg
-									a.nav-link(href="menu.html") menu
-								li.nav-item.hide-lg
-									a.nav-link(href="about.html") about
-								//  Dropdown
-								li.nav-item.dropdown
-									a.nav-link.dropdown-toggle#navbardrop(href="#",data-toggle="dropdown") Pages
-									
-									div.dropdown-menu
-										a.dropdown-item(href="contact.html") Contact
-										a.dropdown-item(href="elements.html") Elements
-								li.nav-item dropdown
-									a.nav-link.dropdown-toggle#navbardrop(href="#",data-toggle="dropdown")
-										Blog
-									div.dropdown-menu
-										a.dropdown-item(href="blog-home.html") Blog
-										a.dropdown-item(href="blog-single.html") Blog Detail
-								li.nav-item
-									a.nav-link(href="gallery.html") Gallery
 								
 //- .navbar.navbar-light.fixed-top.navbar-expand-lg
 //-   .container
