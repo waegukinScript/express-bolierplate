@@ -1,5 +1,3 @@
-
-console.log("Working?")
 $(document).ready(function() {
   "use strict";
 
@@ -119,7 +117,7 @@ $(document).ready(function() {
     { start: "2015-10-01", end: "2015-10-07" }
   ];
 
-  Google Map
+  // Google Map
   if (document.getElementById("contactMap")) {
     google.maps.event.addDomListener(window, "load", init);
 
