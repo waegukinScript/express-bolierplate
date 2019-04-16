@@ -34,7 +34,12 @@ const homeController = require("./controllers/home");
 const userController = require("./controllers/user");
 const apiController = require("./controllers/api");
 const contactController = require("./controllers/contact");
-const elementsController = require("./controllers/elements")
+const elementsController = require("./controllers/elements");
+const blogController = require("./controllers/blog-home");
+const blogSingleController = require("./controllers/blog-single");
+const galleryController = require("./controllers/gallery");
+const aboutController = require("./controllers/about");
+const menuController = require("./controllers/menu"); 
 
 /**
  * API keys and Passport configuration.
@@ -180,6 +185,11 @@ app.post("/signup", userController.postSignup);
 app.get("/contact", contactController.getContact);
 app.post("/contact", contactController.postContact);
 app.get("/elements", elementsController.getElements);
+app.get("/blog-home", blogController.getBlogHome);
+app.get("/blog-single", blogSingleController.getBlogSingle);
+app.get("/gallery", galleryController.getGallery);
+app.get("/about", aboutController.getAbout);
+app.get("/menu", menuController.getMenu);
 app.get("/account", passportConfig.isAuthenticated, userController.getAccount);
 app.post(
   "/account/profile",
