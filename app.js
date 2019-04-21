@@ -102,7 +102,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
-  if (req.path === "/api/upload") {
+  if (req.path === "/api/upload" || req.path === "/contact") {
     next();
   } else {
     lusca.csrf()(req, res, next);
@@ -182,6 +182,7 @@ app.get("/reset/:token", userController.getReset);
 app.post("/reset/:token", userController.postReset);
 app.get("/signup", userController.getSignup);
 app.post("/signup", userController.postSignup);
+// contact
 app.get("/contact", contactController.getContact);
 app.post("/contact", contactController.postContact);
 app.get("/elements", elementsController.getElements);
