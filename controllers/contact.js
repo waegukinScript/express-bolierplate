@@ -1,15 +1,15 @@
-// const nodemailer = require('nodemailer');
+// const nodemailer = require("nodemailer");
 
 /**
  * GET /contact
  * Contact form page.
  */
 exports.getContact = (req, res) => {
-  const unknownUser = !(req.user);
+  const unknownUser = !req.user;
 
-  res.render('contact', {
-    title: 'Contact',
-    unknownUser,
+  res.render("contact", {
+    title: "Contact",
+    unknownUser
   });
 };
 
@@ -34,7 +34,6 @@ exports.postContact = (req, res) => {
   //   req.flash('errors', errors);
   //   return res.redirect('/contact');
   // }
-
   // if (!req.user) {
   //   fromName = req.body.name;
   //   fromEmail = req.body.email;
@@ -42,7 +41,6 @@ exports.postContact = (req, res) => {
   //   fromName = req.user.profile.name || '';
   //   fromEmail = req.user.email;
   // }
-
   // let transporter = nodemailer.createTransport({
   //   service: 'SendGrid',
   //   auth: {
@@ -56,7 +54,6 @@ exports.postContact = (req, res) => {
   //   subject: 'Contact Form | Hackathon Starter',
   //   text: req.body.message
   // };
-
   // return transporter.sendMail(mailOptions)
   //   .then(() => {
   //     req.flash('success', { msg: 'Email has been sent successfully!' });
