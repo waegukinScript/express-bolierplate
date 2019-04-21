@@ -1,6 +1,8 @@
 $(document).ready(function() {
   "use strict";
 
+  console.log("it works!");
+
   var window_width = $(window).width(),
     window_height = window.innerHeight,
     header_height = $(".default-header").height(),
