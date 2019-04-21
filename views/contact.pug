@@ -37,7 +37,7 @@ block content
             .mail
               p info@rooftoprestaurant.co.uk
               p support@rooftoprestaurant.com
-          form#myForm.contact-form(action='')
+          form#myForm.contact-form(action='/contact' method='POST')
             .row
               .col-lg-12.d-flex.flex-column.mb-20
                 input.form-control(name='contact-name' placeholder='Contact Name' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contact Name'" required='' type='text')
@@ -48,7 +48,7 @@ block content
               .col-lg-12.d-flex.flex-column
                 textarea.form-control(name='post-message' placeholder='Post a message' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Post a message'" required='')
               .col-lg-12.d-flex.justify-content-end
-                button.primary-btn.mt-30.text-uppercase Send Message
+                button.primary-btn.mt-30.text-uppercase Send Message1
               .alert-msg
   //- .pb-2.mt-2.mb-4.border-bottom
   //-   h3 Contact Form
