@@ -18,7 +18,11 @@ exports.getContact = (req, res) => {
  * Send a contact form via Nodemailer.
  */
 exports.postContact = (req, res) => {
-  console.log("/contact ", res.body);
+  console.log("req.body.contactName", req.body.contactName);
+  console.log("req.body.emailAddress", req.body.emailAddress);
+  console.log("req.body.phoneNumber", req.body.phoneNumber);
+  console.log("req.body.postMessage", req.body.postMessage);
+
   res.json({ answer: "hello world!" });
   // let fromName;
   // let fromEmail;
