@@ -18,8 +18,8 @@ exports.getContact = (req, res) => {
  * Send a contact form via Nodemailer.
  */
 exports.postContact = (req, res) => {
-  console.log("/contact", req.body);
-  res.json({answers:"hello world!"});
+  console.log("/contact ", res.body);
+  res.json({ answer: "hello world!" });
   // let fromName;
   // let fromEmail;
   // if (!req.user) {
@@ -27,9 +27,7 @@ exports.postContact = (req, res) => {
   //   req.assert('email', 'Email is not valid').isEmail();
   // }
   // req.assert('message', 'Message cannot be blank').notEmpty();
-
   // const errors = req.validationErrors();
-
   // if (errors) {
   //   req.flash('errors', errors);
   //   return res.redirect('/contact');
