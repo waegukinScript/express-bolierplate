@@ -1,4 +1,5 @@
 // const nodemailer = require("nodemailer");
+const Contact = require('../models/Contact');
 
 /**
  * GET /contact
@@ -23,7 +24,21 @@ exports.postContact = (req, res) => {
   console.log("req.body.phoneNumber", req.body.phoneNumber);
   console.log("req.body.postMessage", req.body.postMessage);
 
-  res.json({ answer: "hello world!" });
+  
+  const contact = new Contact({
+    contactName: req.body.contactName,
+    emailAddress: req.body.emailAddress,
+    phoneNumber: req.body.phoneNumber,
+    postMessage: req.body.postMessage
+  });
+
+  contact.save((err) =>{
+    if (err){ return next(err); }
+    res.redirect('/contact')
+  });
+  
+
+
   // let fromName;
   // let fromEmail;
   // if (!req.user) {
