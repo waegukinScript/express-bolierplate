@@ -185,8 +185,10 @@ app.get("/signup", userController.getSignup);
 app.post("/signup", userController.postSignup);
 
 app.get("/contact", contactController.getContact);
+
 app.post("/contact", contactController.postContact);
 app.post("/event", eventController.postEvent);
+
 app.get("/elements", elementsController.getElements);
 app.get("/blog-home", blogController.getBlogHome);
 app.get("/blog-single", blogSingleController.getBlogSingle);

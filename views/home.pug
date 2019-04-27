@@ -121,17 +121,17 @@ block content
     .container
       .row.align-items-center
         .col-lg-7.col-md-6
-          form#myForm.booking-form(action='')
+          form#myFormEvent.booking-form(action='/event' method='POST')
             .row
               .col-lg-12.d-flex.flex-column.mb-20
-                input.form-control(name='event-name', placeholder='Event Name', onfocus="this.placeholder = ''", onblur="this.placeholder = 'Event Name'", required='', type='text')
+                input.form-control(name='eventName', placeholder='Event Name', onfocus="this.placeholder = ''", onblur="this.placeholder = 'Event Name'", required='', type='text')
               .input-group.col-lg-6.mb-20
-                input#event_date.form-control.datepicker(placeholder='Event Date', onfocus="this.placeholder = ''", onblur="this.placeholder = 'Event Date'", required='', type='text')
+                input#event_date.form-control.datepicker(name='eventDate', placeholder='Event Date', onfocus="this.placeholder = ''", onblur="this.placeholder = 'Event Date'", required='', type='text')
                 span.input-group-append
                   button.btn.btn-outline-secondary.border-left-0.border-0(type='button')
                     i.fa.fa-calendar.reservation-calendar
               .col-lg-6.d-flex.flex-column.mb-20
-                .nice-select.app-select.form-control(tabindex='0')
+                .nice-select.app-select.form-control(name='eventTime', tabindex='0')
                   span.current Event Time
                   ul.list
                     li.option.selected(data-value='Project you want to donate', data-display='Project you want to donate')
@@ -141,7 +141,7 @@ block content
                     li.option(data-value='2') 08pm
                     li.option(data-value='3') 09pm
               .col-lg-6.d-flex.flex-column.mb-20
-                .nice-select.app-select.form-control(tabindex='0')
+                .nice-select.app-select.form-control(name='guest',tabindex='0')
                   span.current Number of guests
                   ul.list
                     li.option.selected(data-value='Project you want to donate', data-display='Project you want to donate')
@@ -153,15 +153,15 @@ block content
               .col-lg-6.d-flex.flex-column.mb-20
                 input.form-control(name='budget', placeholder='Budget', onfocus="this.placeholder = ''", onblur="this.placeholder = 'Budget'", required='', type='text')
               .col-lg-12.d-flex.flex-column.mb-20
-                input.form-control(name='contact-name', placeholder='Contact Name', onfocus="this.placeholder = ''", onblur="this.placeholder = 'Contact Name'", required='', type='text')
+                input.form-control(name='contactName', placeholder='Contact Name', onfocus="this.placeholder = ''", onblur="this.placeholder = 'Contact Name'", required='', type='text')
               .col-lg-12.d-flex.flex-column.mb-20
-                input.form-control(name='email-address', placeholder='Email Address', onfocus="this.placeholder = ''", onblur="this.placeholder = 'Email Address'", required='', type='email')
+                input.form-control(name='emailAddress', placeholder='Email Address', onfocus="this.placeholder = ''", onblur="this.placeholder = 'Email Address'", required='', type='email')
               .col-lg-12.d-flex.flex-column.mb-20
-                input.form-control(name='phone-number', placeholder='Phone Number', onfocus="this.placeholder = ''", onblur="this.placeholder = 'Phone Number'", required='', type='text')
+                input.form-control(name='phoneNumber', placeholder='Phone Number', onfocus="this.placeholder = ''", onblur="this.placeholder = 'Phone Number'", required='', type='text')
               .col-lg-12.d-flex.flex-column
-                textarea.form-control(name='post-message', placeholder='Post a message', onfocus="this.placeholder = ''", onblur="this.placeholder = 'Post a message'", required='')
+                textarea.form-control(name='postMessage', placeholder='Post a message', onfocus="this.placeholder = ''", onblur="this.placeholder = 'Post a message'", required='')
               .col-lg-12.d-flex.justify-content-end
-                button.primary-btn.dark.mt-30.text-uppercase Send Request
+                button.primary-btn.dark.mt-30.text-uppercase Send Request12
               .alert-msg
         .offset-lg-1.col-lg-4.col-md-6
           .section-title.relative
