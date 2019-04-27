@@ -24,7 +24,7 @@ exports.postContact = (req, res) => {
   console.log("req.body.phoneNumber", req.body.phoneNumber);
   console.log("req.body.postMessage", req.body.postMessage);
 
-  
+
   const contact = new Contact({
     contactName: req.body.contactName,
     emailAddress: req.body.emailAddress,
@@ -32,11 +32,10 @@ exports.postContact = (req, res) => {
     postMessage: req.body.postMessage
   });
 
-  contact.save((err) =>{
-    if (err){ return next(err); }
-    res.redirect('/contact')
+  contact.save((err) => {
+    if (err) { return next(err); }
+    res.redirect('/contact');
   });
-  
 
 
   // let fromName;
