@@ -3,7 +3,13 @@ header.header-area
     .header-wrap
       .header-top.d-flex.justify-content-between.align-items-center.navbar-expand-md
         .col.menu-left
-          a.active(href='/') Home
+          li.nav-item.dropdown
+              a#navbardrop.nav-link.dropdown-toggle(href='#' data-toggle='dropdown')
+                | Home
+              .dropdown-menu
+                a.dropdown-item(href='/') Home
+                a.dropdown-item(href='/userAdmin') User Admin
+
           a(href='/menu') menu
           a(href='/about') about
         .col-3.logo
