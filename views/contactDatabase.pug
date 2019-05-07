@@ -1,0 +1,43 @@
+extends layout
+
+block content
+
+  // ================ Start banner Area =================
+  section.banner-area.relative
+    .container
+      .row.height.align-items-center.justify-content-center
+        .banner-content.col-lg-6
+          h1 Contact Database
+          hr
+          .breadcrmb
+            p
+              a(href='index.html') Databases
+              span.lnr.lnr-arrow-right
+              a(href='about.html') From  ../models
+              a(href="/contactDatabase")
+                li Contact
+              a(href="/eventDatabase")
+                li Event
+              a(href="/userDatabase")
+                li User
+              
+  // ============ content =====================
+  section.gallery-area.section-gap.mt-172
+    .container
+      .row.align-items-center
+        .col-lg-6.col-md-5.col-sm-6
+          .single-gallery.mt--350
+            table.table.table-bordered.table-hover.table-striped
+              thead
+                tr
+                  th Contact Name
+                  th Description
+                  th
+              tbody
+                each contact in contacts
+                  tr
+                    td= contact.contactName
+                    td= contact.emailAddress
+                    td
+                      a.btn.btn-sm.btn-primary(href='/events/<%= event.slug %>/edit') Edit
+                      a.btn.btn-sm.btn-danger(href='/events/<%= event.slug %>/delete') Delete

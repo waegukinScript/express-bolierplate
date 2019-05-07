@@ -17,14 +17,15 @@ html
     link(rel='stylesheet', href='/css/owl.carousel.css')
     link(rel='stylesheet', href='/css/bootstrap.css')
     link(rel='stylesheet', href='/css/bootstrap-datepicker.css')
-    link(rel='stylesheet', href='/css/style.css')
+    //- link(rel='stylesheet', href='/css/style.css')
+    link(rel='stylesheet', href='/css/main.css')
+
 
   body
     include partials/header
-
+    block content
     .container
       include partials/flash
-      block content
 
     include partials/footer
 
