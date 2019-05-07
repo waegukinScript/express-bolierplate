@@ -40,6 +40,7 @@ block content
           form#myForm.contact-form(action='/contact' method='POST')
             .row
               .col-lg-12.d-flex.flex-column.mb-20
+                input(type='hidden', name='_csrf', value=_csrf)
                 input.form-control(name='contactName' placeholder='Contact Name' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contact Name'" required='' type='text')
               .col-lg-12.d-flex.flex-column.mb-20
                 input.form-control(name='emailAddress' placeholder='Email Address' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'" required='' type='email')
