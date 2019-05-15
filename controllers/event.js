@@ -28,8 +28,50 @@ exports.postEvent = (req, res) => {
   });
 
   event.save((err) => {
-    if (err) { return next(err); }
+    if (err) {
+      return next(err);
+    }
     res.redirect('/');
   });
 
+};
+// Deletes the post from the admin
+exports.postDeleteEvent =  (req, res, next) => {
+  const {id} = (req.params)
+  doc =   Event.findOneAndDelete({_id: id},function(err, doc) {
+    if( err) {
+      console.log(err);
+    }
+    console.log(doc)
+    return res.redirect('back')
+  })
+  console.log("message blah after button clicked", req.event)
+  
+};
+
+// 1.Trying to edit the form
+exports.postEditEvent = (req, res, next) => {
+  const {id} = (req.params)
+  doc = Event.findById({_id: id}, function(err, doc){
+    if (err) {
+      console.log(err);
+    }
+    console.log(doc)
+    return res.redirect('back')
+  })
+  console.log("you are editing this row", req.event)
+};
+
+//2. Then we are going to try to update the form
+
+exports.postUpdateEvent = (req, res, next) => {
+  const {id} = (req.params)
+  doc = Event.findById({_id: id}, function(err, doc){
+    if (err) {
+      console.log(err);
+    }
+    console.log(doc)
+    return res.redirect('back')
+  })
+  console.log("you are editing this row", req.event)
 };
