@@ -106,7 +106,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
-  if (req.path === "/api/upload" || req.path === "/contact" || req.path === "/event" || req.path.includes('/event/delete/') || req.path.includes('/event/edit/')) {
+  if (req.path === "/api/upload" || req.path === "/contact" || req.path === "/event" || req.path.includes('/event/delete/') || req.path.includes('/event/edit/') || req.path.includes('/event/update/')) {
     next();
   } else {
     lusca.csrf()(req, res, next);
@@ -194,6 +194,9 @@ app.get("/contact", contactController.getContact);
 app.post("/contact", contactController.postContact);
 app.post("/event", eventController.postEvent);
 app.post("/event/delete/:id", eventController.postDeleteEvent);
+// New Routes
+app.post("/event/edit/:id", eventController.postEditEvent);
+app.post("/event/update/:id", eventController.postUpdateEvent);
 
 app.get("/elements", elementsController.getElements);
 app.get("/blog-home", blogController.getBlogHome);
