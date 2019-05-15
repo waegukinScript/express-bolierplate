@@ -31,6 +31,7 @@ dotenv.config({ path: ".env" });
  * Controllers (route handlers).
  */
 const homeController = require("./controllers/home");
+const userAdminController = require("./controllers/userAdmin");
 const userController = require("./controllers/user");
 const apiController = require("./controllers/api");
 const contactController = require("./controllers/contact");
@@ -44,7 +45,6 @@ const menuController = require("./controllers/menu");
 const contactDatabaseController = require("./controllers/contactDatabase");
 const eventDatabaseController = require("./controllers/eventDatabase");
 const userDatabaseController = require("./controllers/userDatabase");
-
 /**
  * API keys and Passport configuration.
  */
@@ -106,14 +106,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
-  if (req.path === "/api/upload" || req.path === "/contact" || req.path === "/event") {
+  if (req.path === "/api/upload" || req.path === "/contact" || req.path === "/event" || req.path.includes('/event/delete/') || req.path.includes('/event/edit/')) {
     next();
   } else {
     lusca.csrf()(req, res, next);
   }
 });
-app.use(lusca.xframe("SAMEORIGIN"));
-app.use(lusca.xssProtection(true));
+// app.use(lusca.xframe("SAMEORIGIN"));
+// app.use(lusca.xssProtection(true));
 app.disable("x-powered-by");
 app.use((req, res, next) => {
   res.locals.user = req.user;
@@ -187,21 +187,22 @@ app.post("/reset/:token", userController.postReset);
 app.get("/signup", userController.getSignup);
 app.post("/signup", userController.postSignup);
 
+app.get("/contactDatabase", contactDatabaseController.getContactDatabase);
+app.get("/eventDatabase", eventDatabaseController.getEventDatabase);
+app.get("/userDatabase", userDatabaseController.getUserDatabase);
 app.get("/contact", contactController.getContact);
-
 app.post("/contact", contactController.postContact);
 app.post("/event", eventController.postEvent);
 app.post("/event/delete/:id", eventController.postDeleteEvent);
+app.post("/event/edit/:id", eventController.postEditEvent);
 
-app.get("/eventDatabase", eventDatabaseController.getEventDatabase);
-app.get("/contactDatabase", contactDatabaseController.getContactDatabase);
-app.get("/userDatabase", userDatabaseController.getUserDatabase);
 app.get("/elements", elementsController.getElements);
 app.get("/blog-home", blogController.getBlogHome);
 app.get("/blog-single", blogSingleController.getBlogSingle);
 app.get("/gallery", galleryController.getGallery);
 app.get("/about", aboutController.getAbout);
 app.get("/menu", menuController.getMenu);
+app.get("/userAdmin", userAdminController.getUserAdmin);
 app.get("/account", passportConfig.isAuthenticated, userController.getAccount);
 app.post(
   "/account/profile",
@@ -217,11 +218,6 @@ app.post(
   "/account/delete",
   passportConfig.isAuthenticated,
   userController.postDeleteAccount
-);
-
-app.post(
-  "/event/delete",
-  eventController.postDeleteEvent
 );
 app.get(
   "/account/unlink/:provider",

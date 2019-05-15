@@ -48,3 +48,16 @@ exports.postDeleteEvent =  (req, res, next) => {
   console.log("message blah after button clicked", req.event)
   
 };
+
+// Trying to edit the form
+exports.postEditEvent = (req, res, next) => {
+  const {id} = (req.params)
+  doc = Event.findById({_id: id}, function(err, doc){
+    if (err) {
+      console.log(err);
+    }
+    console.log(doc)
+    return res.redirect('back')
+  })
+  console.log("you are editing this row", req.event)
+};
