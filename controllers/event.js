@@ -28,8 +28,23 @@ exports.postEvent = (req, res) => {
   });
 
   event.save((err) => {
-    if (err) { return next(err); }
+    if (err) {
+      return next(err);
+    }
     res.redirect('/');
   });
 
+};
+// Deletes the post from the admin
+exports.postDeleteEvent =  (req, res, next) => {
+  const {id} = (req.params)
+  doc =   Event.findOneAndDelete({_id: id},function(err, doc) {
+    if( err) {
+      console.log(err);
+    }
+    console.log(doc)
+    return res.redirect('back')
+  })
+  console.log("message blah after button clicked", req.event)
+  
 };

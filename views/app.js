@@ -45,7 +45,6 @@ const contactDatabaseController = require("./controllers/contactDatabase");
 const eventDatabaseController = require("./controllers/eventDatabase");
 const userDatabaseController = require("./controllers/userDatabase");
 
-
 /**
  * API keys and Passport configuration.
  */
@@ -192,6 +191,8 @@ app.get("/contact", contactController.getContact);
 
 app.post("/contact", contactController.postContact);
 app.post("/event", eventController.postEvent);
+app.post("/event/delete/:id", eventController.postDeleteEvent);
+
 app.get("/eventDatabase", eventDatabaseController.getEventDatabase);
 app.get("/contactDatabase", contactDatabaseController.getContactDatabase);
 app.get("/userDatabase", userDatabaseController.getUserDatabase);
@@ -216,6 +217,11 @@ app.post(
   "/account/delete",
   passportConfig.isAuthenticated,
   userController.postDeleteAccount
+);
+
+app.post(
+  "/event/delete",
+  eventController.postDeleteEvent
 );
 app.get(
   "/account/unlink/:provider",
