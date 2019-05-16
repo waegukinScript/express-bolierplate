@@ -35,6 +35,7 @@ const userAdminController = require("./controllers/userAdmin");
 const userController = require("./controllers/user");
 const apiController = require("./controllers/api");
 const contactController = require("./controllers/contact");
+
 const eventController = require("./controllers/event");
 const elementsController = require("./controllers/elements");
 const blogController = require("./controllers/blog-home");
@@ -194,7 +195,8 @@ app.get("/contact", contactController.getContact);
 app.post("/contact", contactController.postContact);
 app.post("/event", eventController.postEvent);
 app.post("/event/delete/:id", eventController.postDeleteEvent);
-// New Routes
+
+app.get('/eventDatabase', eventDatabaseController.getEventDatabase);
 app.post("/event/edit/:id", eventController.postEditEvent);
 app.post("/event/update/:id", eventController.postUpdateEvent);
 
