@@ -1,6 +1,8 @@
 /**
  * Module dependencies.
  */
+// import { csrf } from 'lusca';
+
 const express = require('express');
 const compression = require('compression');
 const session = require('express-session');
@@ -20,6 +22,7 @@ const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
 
+
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
 /**
@@ -34,7 +37,12 @@ const homeController = require('./controllers/home');
 const userAdminController = require('./controllers/userAdmin');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
+
+
+
 const contactController = require('./controllers/contact');
+const contactDatabaseController = require('./controllers/contactDatabase');
+
 
 const eventController = require('./controllers/event');
 const elementsController = require('./controllers/elements');
@@ -43,7 +51,6 @@ const blogSingleController = require('./controllers/blog-single');
 const galleryController = require('./controllers/gallery');
 const aboutController = require('./controllers/about');
 const menuController = require('./controllers/menu');
-const contactDatabaseController = require('./controllers/contactDatabase');
 const eventDatabaseController = require('./controllers/eventDatabase');
 const userDatabaseController = require('./controllers/userDatabase');
 /**
@@ -56,6 +63,15 @@ const passportConfig = require('./config/passport');
  */
 const app = express();
 
+// app.use(app.router);
+// app.use(csrf());
+// app.use(csrf());
+// app.use(function (req, res, next) {
+//   res.cookie('XSRF-TOKEN', req.csrfToken());
+//   res.locals.csrftoken = req.csrfToken();
+//   next();
+// });
+// app.use(app.router);
 /**
  * Connect to MongoDB.
  */
@@ -168,11 +184,21 @@ app.post('/reset/:token', userController.postReset);
 app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
 
+
+
+
 app.get('/contactDatabase', contactDatabaseController.getContactDatabase);
-app.get('/eventDatabase', eventDatabaseController.getEventDatabase);
-app.get('/userDatabase', userDatabaseController.getUserDatabase);
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
+app.post('/contact/delete/:id', contactController.postDeleteContact);
+app.post('/contact/edit/:id', contactController.postEditContact);
+app.post('/contact/update/:id', contactController.postUpdateContact);
+
+
+
+
+app.get('/eventDatabase', eventDatabaseController.getEventDatabase);
+app.get('/userDatabase', userDatabaseController.getUserDatabase);
 app.post('/event', eventController.postEvent);
 app.post('/event/delete/:id', eventController.postDeleteEvent);
 
