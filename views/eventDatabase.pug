@@ -69,4 +69,27 @@ block content
                             i.fas.fa-paper-plane.fa-sm
                             | Email
 
+          nav.blog-pagination.justify-content-center.d-flex
+            ul.pagination
+              if hasPreviousPage
+                  li.page-item
+                    a.page-link(href=`/eventDatabase/?page=${ previousPage}` aria-label='Previous')
+                      span(aria-hidden='true')
+                        span.lnr.lnr-chevron-left
+              if currentPage!==1 && previousPage !==1
+                  li.page-item
+                    a.page-link(href=`/eventDatabase/?page=1`) 1
+              if hasPreviousPage
+                  li.page-item
+                    a.page-link(href=`/eventDatabase/?page=${ previousPage}`)= previousPage
+              li.page-item.active
+                a.page-link(href=`/eventDatabase/?page=${ currentPage}`)= currentPage
+              if hasNextPage
+                  li.page-item
+                    a.page-link(href=`/eventDatabase/?page=${ nextPage}`)= nextPage
+              if hasNextPage
+                  li.page-item
+                    a.page-link(href=`/eventDatabase/?page=${ nextPage}` aria-label='Next')
+                      span(aria-hidden='true')
+                        span.lnr.lnr-chevron-right
 
