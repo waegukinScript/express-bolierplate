@@ -7,7 +7,7 @@ block content
     .container
       .row.height.align-items-center.justify-content-center
         .banner-content.col-lg-6
-          h1 Event Database
+          h1 Contact Database
           hr
           .breadcrmb
             p
@@ -27,20 +27,22 @@ block content
       .row.align-items-center
         .col-lg-6.col-md-5.col-sm-6
           .single-gallery.mt--350
-              
-              form#myForm.contact-form(action=`/contact/update/${event.id}` method='POST')
+
+              form.contact-form(action=`/contact/update/${contact.id}` method='POST')
                 .row
                   .col-lg-12.d-flex.flex-column.mb-20
                     input(type='hidden', name='_csrf', value=_csrf)
-                    input.form-control(name='contactName' placeholder='Contact Name' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contact Name'" required='' type='text')
+                    input.form-control(name='contactName' value=`${contact.contactName}` placeholder='Contact Name' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contact Name'" required='' type='text')
                   .col-lg-12.d-flex.flex-column.mb-20
-                    input.form-control(name='emailAddress' placeholder='Email Address' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'" required='' type='email')
+                    input.form-control(name='emailAddress' value=`${contact.emailAddress}` placeholder='Email Address' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'" required='' type='email')
                   .col-lg-12.d-flex.flex-column.mb-20
-                    input.form-control(name='phoneNumber' placeholder='Phone Number' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone Number'" required='' type='text')
+                    input.form-control(name='phoneNumber' value=`${contact.phoneNumber}` placeholder='Phone Number' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone Number'" required='' type='text')
                   .col-lg-12.d-flex.flex-column
-                    textarea.form-control(name='postMessage' placeholder='Post a message' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Post a message'" required='')
+                    textarea.form-control(name='postMessage' placeholder=`${contact.postMessage}` onfocus="this.placeholder = ''" onblur="this.placeholder = 'Post a message'" required='')
                   .col-lg-12.d-flex.justify-content-end
-                    button.primary-btn.mt-30.text-uppercase Send Message1
+                      button.btn.btn-md.btn-success(type='submit' style='margin-top:10px')
+                          i.fas.fa-pencil-square-o.fa-sm
+                          | Update
                   .alert-msg
                   //
-              
+

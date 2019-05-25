@@ -36,8 +36,6 @@ exports.postContact = (req, res) => {
     if (err) { return next(err); }
     res.redirect('/contact');
   });
-
-
   // let fromName;
   // let fromEmail;
   // if (!req.user) {
@@ -105,4 +103,50 @@ exports.postContact = (req, res) => {
   //     req.flash('errors', { msg: 'Error sending the message. Please try again shortly.' });
   //     return res.redirect('/contact');
   //   });
+};
+
+exports.postDeleteContact = (req, res, next) => {
+  const { id } = req.params;
+  Contact.findOneAndDelete({ _id: id }, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      return res.redirect('back');
+    }
+  });
+};
+
+exports.postEditContact = (req, res, next) => {
+  const { id } = req.params;
+  Contact.findById({ _id: id }, (err, contact) => {
+    if (err) {
+      console.log(err);
+    } else if (contact) {
+      res.render('editContact', {
+        title: 'Edit Event',
+        contact
+      });
+    }
+  });
+};
+
+exports.postUpdateContact = (req, res, next) => {
+  const { id } = (req.params);
+  const obj = req.body;
+  Contact.findById({ _id: id }, (err, contact) => {
+    if (err) {
+      console.log(err);
+    } else if (contact) {
+      contact.contactName = obj.contactName;
+      contact.emailAddress = obj.emailAddress;
+      contact.phoneNumber = obj.phoneNumber;
+      contact.postMessage = obj.postMessage;
+      contact.save((err) => {
+        if (err) {
+          return next(err);
+        }
+        return res.redirect('/contactDatabase');
+      });
+    }
+  });
 };
