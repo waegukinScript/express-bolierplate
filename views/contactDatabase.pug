@@ -61,6 +61,12 @@ block content
                         form(action= `/contact/edit/${contact.id}`, method='POST', onsubmit="return('Now we updated and saved the information');")
                             .form-group
                                 input(type='hidden', name='_csrf', value=_csrf)
+                                button.btn.btn-sm.btn-info(type='submit')
+                                    i.fas.fa-file-download.fa-sm
+                                    | Save
+                        form(action= `/contact/edit/${contact.id}`, method='POST', onsubmit="return('Now we updated and saved the information');")
+                            .form-group
+                                input(type='hidden', name='_csrf', value=_csrf)
                                 button.btn.btn-sm.btn-success(type='submit')
                                     i.fas.fa-paper-plane.fa-sm
                                     | Email
