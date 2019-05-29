@@ -193,6 +193,7 @@ app.post('/contact', contactController.postContact);
 app.post('/contact/delete/:id', contactController.postDeleteContact);
 app.post('/contact/edit/:id', contactController.postEditContact);
 app.post('/contact/update/:id', contactController.postUpdateContact);
+app.post('/contact/get-report/:id', contactController.postGetReportContact);
 
 
 
@@ -201,6 +202,7 @@ app.get('/eventDatabase', eventDatabaseController.getEventDatabase);
 app.get('/userDatabase', userDatabaseController.getUserDatabase);
 app.post('/event', eventController.postEvent);
 app.post('/event/delete/:id', eventController.postDeleteEvent);
+app.post('/event/get-report/:id', eventController.postGetReportEvent);
 
 app.get('/eventDatabase', eventDatabaseController.getEventDatabase);
 app.post('/event/edit/:id', eventController.postEditEvent);
@@ -260,3 +262,15 @@ app.listen(app.get('port'), () => {
 });
 
 module.exports = app;
+
+
+/*  
+  we have downloaded these extra packects.
+
+
+  https://www.npmjs.com/package/html-pdf?activeTab=readme
+  https://www.npmjs.com/package/pdfkit
+
+
+
+*/

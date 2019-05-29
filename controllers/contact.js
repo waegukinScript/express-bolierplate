@@ -1,4 +1,6 @@
 // const nodemailer = require("nodemailer");
+const fs = require('fs');
+const pdf = require('html-pdf');
 const Contact = require('../models/Contact');
 
 /**
@@ -8,8 +10,8 @@ const Contact = require('../models/Contact');
 exports.getContact = (req, res) => {
   const unknownUser = !req.user;
 
-  res.render("contact", {
-    title: "Contact",
+  res.render('contact', {
+    title: 'Contact',
     unknownUser
   });
 };
@@ -18,11 +20,11 @@ exports.getContact = (req, res) => {
  * POST /contact
  * Send a contact form via Nodemailer.
  */
-exports.postContact = (req, res) => {
-  console.log("req.body.contactName", req.body.contactName);
-  console.log("req.body.emailAddress", req.body.emailAddress);
-  console.log("req.body.phoneNumber", req.body.phoneNumber);
-  console.log("req.body.postMessage", req.body.postMessage);
+exports.postContact = (req, res, next) => {
+  console.log('req.body.contactName', req.body.contactName);
+  console.log('req.body.emailAddress', req.body.emailAddress);
+  console.log('req.body.phoneNumber', req.body.phoneNumber);
+  console.log('req.body.postMessage', req.body.postMessage);
 
 
   const contact = new Contact({
@@ -75,7 +77,9 @@ exports.postContact = (req, res) => {
   //   })
   //   .catch((err) => {
   //     if (err.message === 'self signed certificate in certificate chain') {
-  //       console.log('WARNING: Self signed certificate in certificate chain. Retrying with the self signed certificate. Use a valid certificate if in production.');
+  //       console.log('WARNING: Self signed certificate in certificate chain.
+  // Retrying with the self signed certif
+  // icate. Use a valid certificate if in production.');
   //       transporter = nodemailer.createTransport({
   //         service: 'SendGrid',
   //         auth: {
@@ -146,6 +150,72 @@ exports.postUpdateContact = (req, res, next) => {
           return next(err);
         }
         return res.redirect('/contactDatabase');
+      });
+    }
+  });
+};
+
+exports.postGetReportContact = (req, res, next) => {
+  const { id } = (req.params);
+  Contact.findById({ _id: id }, (err, contact) => {
+    if (err) {
+      console.log(err);
+    } else if (contact) {
+      const html = `
+                    <style>
+                    table{
+                        border-collapse: collapse;
+                        margin-top: 30px;
+                        margin-left: 70px;
+                        margin-right: 30px;
+                    }
+                    .heading{
+                        font-weight: bold;
+                        width: 150px;
+                    }
+                    .value{
+                        width: 500px;
+                    }
+                    </style>
+                    <div style="margin-top: 50px">
+                      <h1 style="margin-left: 70px;">Contacts</h1>
+                      <hr style=" margin-top:0px; height:10px;border:none;color:#333;background-color:#333; margin-left: 70px; margin-right: 73px;" />
+                      <table border="1">
+                        <tr>
+                          <td class="heading">Contact Name</td>
+                          <td class="value">${contact.contactName}</td>
+                        </tr>
+                        <tr>
+                          <td class="heading">Email Address</td>
+                          <td class="value">${contact.emailAddress}</td>
+                        </tr>
+                        <tr>
+                          <td class="heading">Phone Number</td>
+                          <td class="value">${contact.phoneNumber}</td>
+                        </tr>
+                        <tr>
+                          <td class="heading">Post Message</td>
+                          <td class="value">${contact.postMessage}</td>
+                        </tr>
+                        <tr>
+                          <td class="heading">Date Entered</td>
+                          <td class="value">${contact.createdAt}</td>
+                        </tr>
+                      </table>
+                  </div>
+          `;
+      const pdfFilePath = './contact.pdf';
+      const options = { format: 'Letter' };
+      pdf.create(html, options).toFile(pdfFilePath, (err, res2) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send('Some kind of error...');
+          return;
+        }
+        fs.readFile(pdfFilePath, (err, data) => {
+          res.contentType('application/pdf');
+          res.send(data);
+        });
       });
     }
   });

@@ -63,8 +63,9 @@ block content
                           button.btn.btn-sm.btn-primary(type='submit')
                             i.fas.fa-pencil-square-o.fa-sm
                             | Edit
-                      form(action= `/event/edit/${event.id}`, method='POST', onsubmit="return('Now we updated and saved the information');")
+                      form(action= `/event/get-report/${event.id}`, method='POST', onsubmit="return('Now we updated and saved the information');")
                         .form-group
+                          input(type='hidden', name='_csrf', value=_csrf)
                           button.btn.btn-sm.btn-info(type='submit')
                             i.fas.fa-file-download.fa-sm
                             | Save
