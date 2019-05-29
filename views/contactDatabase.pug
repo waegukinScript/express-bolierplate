@@ -70,6 +70,24 @@ block content
                                 button.btn.btn-sm.btn-success(type='submit')
                                     i.fas.fa-paper-plane.fa-sm
                                     | Email
+                tr
+                  th 
+                  th 
+                  th 
+                    input(type='hidden', name='_csrf', value=_csrf)
+                    button.btn.btn-sm.btn-danger(type='submit')
+                        i.fas.fa-trash-alt.fa-sm
+                        | Delete page
+                  th 
+                    input(type='hidden', name='_csrf', value=_csrf)
+                    button.btn.btn-sm.btn-info(type='submit')
+                        i.fas.fa-file-download.fa-sm
+                        | Save page
+                  th 
+                    input(type='hidden', name='_csrf', value=_csrf)
+                    button.btn.btn-sm.btn-success(type='submit')
+                        i.fas.fa-paper-plane.fa-sm
+                        | Email page
 
             nav.blog-pagination.justify-content-center.d-flex
                 ul.pagination
