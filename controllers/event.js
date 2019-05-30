@@ -1,5 +1,6 @@
 const fs = require('fs');
 const pdf = require('html-pdf');
+const jade = require('jade');
 const Event = require('../models/Event');
 
 exports.postEvent = (req, res, next) => {
@@ -161,4 +162,65 @@ exports.postGetReportEvent = (req, res, next) => {
       });
     }
   });
+};
+
+const ITEMS_PER_PAGE1 = 10;
+exports.postDeletePageEvent = (req, res, next) => {
+  const { page } = (req.params) || 1;
+  let totalItem;
+  let status = true;
+  Event.find()
+    .countDocuments()
+    .then((numberTest) => {
+      totalItem = numberTest;
+      return Event.find({})
+        .skip((page - 1) * ITEMS_PER_PAGE1)
+        .limit(ITEMS_PER_PAGE1);
+    }).then((events) => {
+      events.forEach((event) => {
+        Event.findOneAndDelete({ _id: event.id }, (err) => {
+          if (err) {
+            console.log(err);
+          } else {
+            status = true;
+          }
+        });
+      });
+    });
+  if (status) {
+    if (page === '1') {
+      return res.redirect('/eventDatabase/?page=1');
+    }
+    return res.redirect(`/eventDatabase/?page=${page - 1}`);
+  }
+};
+
+const ITEMS_PER_PAGE = 10;
+exports.postSavePageEvent = (req, res, next) => {
+  const { page } = (req.params) || 1;
+  let totalItem;
+  Event.find()
+    .countDocuments()
+    .then((numberTest) => {
+      totalItem = numberTest;
+      return Event.find({})
+        .skip((page - 1) * ITEMS_PER_PAGE)
+        .limit(ITEMS_PER_PAGE);
+    }).then((events) => {
+      jade.renderFile('views/testEvent.pug', { eventsReceived: events }, (err, html) => {
+        const pdfFilePath = './events.pdf';
+        const options = { format: 'Letter' };
+        pdf.create(html, options).toFile(pdfFilePath, (err, res2) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send('Some kind of error...');
+            return;
+          }
+          fs.readFile(pdfFilePath, (err, data) => {
+            res.contentType('application/pdf');
+            res.send(data);
+          });
+        });
+      });
+    });
 };

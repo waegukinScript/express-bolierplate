@@ -1,6 +1,7 @@
 // const nodemailer = require("nodemailer");
 const fs = require('fs');
 const pdf = require('html-pdf');
+const jade = require('jade');
 const Contact = require('../models/Contact');
 
 /**
@@ -219,4 +220,65 @@ exports.postGetReportContact = (req, res, next) => {
       });
     }
   });
+};
+
+const ITEMS_PER_PAGE1 = 10;
+exports.postDeletePageContact = (req, res, next) => {
+  const { page } = (req.params) || 1;
+  let totalItem;
+  let status = true;
+  Contact.find()
+    .countDocuments()
+    .then((numberTest) => {
+      totalItem = numberTest;
+      return Contact.find({})
+        .skip((page - 1) * ITEMS_PER_PAGE1)
+        .limit(ITEMS_PER_PAGE1);
+    }).then((contacts) => {
+      contacts.forEach((contact) => {
+        Contact.findOneAndDelete({ _id: contact.id }, (err) => {
+          if (err) {
+            console.log(err);
+          } else {
+            status = true;
+          }
+        });
+      });
+    });
+  if (status) {
+    if (page === '1') {
+      return res.redirect('/contactDatabase/?page=1');
+    }
+    return res.redirect(`/contactDatabase/?page=${page - 1}`);
+  }
+};
+
+const ITEMS_PER_PAGE = 10;
+exports.postSavePageContact = (req, res, next) => {
+  const { page } = (req.params) || 1;
+  let totalItem;
+  Contact.find()
+    .countDocuments()
+    .then((numberTest) => {
+      totalItem = numberTest;
+      return Contact.find({})
+        .skip((page - 1) * ITEMS_PER_PAGE)
+        .limit(ITEMS_PER_PAGE);
+    }).then((contacts) => {
+      jade.renderFile('views/testContact.pug', { contactsReceived: contacts }, (err, html) => {
+        const pdfFilePath = './contacts.pdf';
+        const options = { format: 'Letter' };
+        pdf.create(html, options).toFile(pdfFilePath, (err, res2) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send('Some kind of error...');
+            return;
+          }
+          fs.readFile(pdfFilePath, (err, data) => {
+            res.contentType('application/pdf');
+            res.send(data);
+          });
+        });
+      });
+    });
 };
