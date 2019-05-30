@@ -39,7 +39,6 @@ const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 
 
-
 const contactController = require('./controllers/contact');
 const contactDatabaseController = require('./controllers/contactDatabase');
 
@@ -185,8 +184,6 @@ app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
 
 
-
-
 app.get('/contactDatabase', contactDatabaseController.getContactDatabase);
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
@@ -194,8 +191,8 @@ app.post('/contact/delete/:id', contactController.postDeleteContact);
 app.post('/contact/edit/:id', contactController.postEditContact);
 app.post('/contact/update/:id', contactController.postUpdateContact);
 app.post('/contact/get-report/:id', contactController.postGetReportContact);
-
-
+app.post('/contact/delete-page/:page', contactController.postDeletePageContact);
+app.post('/contact/save-page/:page', contactController.postSavePageContact);
 
 
 app.get('/eventDatabase', eventDatabaseController.getEventDatabase);
@@ -203,6 +200,8 @@ app.get('/userDatabase', userDatabaseController.getUserDatabase);
 app.post('/event', eventController.postEvent);
 app.post('/event/delete/:id', eventController.postDeleteEvent);
 app.post('/event/get-report/:id', eventController.postGetReportEvent);
+app.post('/event/delete-page/:page', eventController.postDeletePageEvent);
+app.post('/event/save-page/:page', eventController.postSavePageEvent);
 
 app.get('/eventDatabase', eventDatabaseController.getEventDatabase);
 app.post('/event/edit/:id', eventController.postEditEvent);
@@ -264,13 +263,11 @@ app.listen(app.get('port'), () => {
 module.exports = app;
 
 
-/*  
+/*
   we have downloaded these extra packects.
-
 
   https://www.npmjs.com/package/html-pdf?activeTab=readme
   https://www.npmjs.com/package/pdfkit
-
-
+  https://www.npmjs.com/package/jade
 
 */
