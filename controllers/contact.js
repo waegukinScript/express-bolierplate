@@ -2,7 +2,6 @@
 const fs = require('fs');
 const pdf = require('html-pdf');
 const jade = require('jade');
-const Contact = require('../models/Contact');
 
 /**
  * GET /contact
@@ -281,4 +280,172 @@ exports.postSavePageContact = (req, res, next) => {
         });
       });
     });
+};
+
+const nodemailer = require('nodemailer');
+const sendgridTransport = require('nodemailer-sendgrid-transport');
+const Contact = require('../models/Contact');
+
+const transporter = nodemailer.createTransport(sendgridTransport({
+  auth: {
+    api_key: 'ENTER_YOUR_SENDGRID_API_KEY_HERE'
+  }
+}));
+
+
+exports.postSendEmailContact = (req, res, next) => {
+  const { id } = (req.params);
+  res.render('send-email-contact', {
+    title: 'Send Email',
+    id
+  });
+};
+
+exports.postEmailContact = (req, res, next) => {
+  const { id } = (req.params);
+  const  name  = req.body.name;
+  const  recipientEmail  = req.body.emailAddress;
+  const  postMessage  = req.body.postMessage;
+  Contact.findById({ _id: id }, (err, contact) => {
+    if (err) {
+      console.log(err);
+    } else if (contact) {
+      const html = `
+                    <style>
+                    table{
+                        border-collapse: collapse;
+                        margin-top: 30px;
+                        margin-left: 70px;
+                        margin-right: 30px;
+                    }
+                    .heading{
+                        font-weight: bold;
+                        width: 150px;
+                    }
+                    .value{
+                        width: 500px;
+                    }
+                    </style>
+                    <div style="margin-top: 50px">
+                      <h1 style="margin-left: 70px;">Contacts</h1>
+                      <hr style=" margin-top:0px; height:10px;border:none;color:#333;background-color:#333; margin-left: 70px; margin-right: 73px;" />
+                      <table border="1">
+                        <tr>
+                          <td class="heading">Contact Name</td>
+                          <td class="value">${contact.contactName}</td>
+                        </tr>
+                        <tr>
+                          <td class="heading">Email Address</td>
+                          <td class="value">${contact.emailAddress}</td>
+                        </tr>
+                        <tr>
+                          <td class="heading">Phone Number</td>
+                          <td class="value">${contact.phoneNumber}</td>
+                        </tr>
+                        <tr>
+                          <td class="heading">Post Message</td>
+                          <td class="value">${contact.postMessage}</td>
+                        </tr>
+                        <tr>
+                          <td class="heading">Date Entered</td>
+                          <td class="value">${contact.createdAt}</td>
+                        </tr>
+                      </table>
+                  </div>
+          `;
+      const pdfFilePath = './contact.pdf';
+      const options = { format: 'Letter' };
+      pdf.create(html, options).toFile(pdfFilePath, (err, res2) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send('Some kind of error...');
+          return;
+        }
+        fs.readFile(pdfFilePath, (err, data) => {
+          transporter.sendMail({
+            to: recipientEmail,
+            from: name,
+            subject: 'Contact Information',
+            html: postMessage,
+            attachments: [{
+              filename: 'contact.pdf',
+              content: data,
+              type: 'application/pdf',
+              disposition: 'attachment',
+              contentId: 'myId'
+            }],
+          });
+        });
+      });
+    }
+  });
+  res.render('send-email-contact', {
+    title: 'Send Email',
+    id
+  });
+  // transporter.sendMail({
+  //   to: 'ammarshabbir007@gmail.com',
+  //   from: 'MailRoomNS1',
+  //   subject: 'We Received Your Parcel',
+  //   html: 'Working',
+  //   files     : [{filename: 'Report.pdf', content: data}],
+  // });
+  // res.send(`Working${id}`);
+  // res.send(`Working${id}${name}${recipientEmail}${postMessage}`);
+};
+
+exports.postSendEmailPageContact = (req, res, next) => {
+  const { page } = (req.params);
+  res.render('send-email-page-contact', {
+    title: 'Email Page',
+    page
+  });
+};
+
+exports.postEmailPageContact = (req, res, next) => {
+  const { page } = (req.params) || 1;
+  const  name  = req.body.name;
+  const  recipientEmail  = req.body.emailAddress;
+  const  postMessage  = req.body.postMessage;
+  let totalItem;
+  Contact.find()
+    .countDocuments()
+    .then((numberTest) => {
+      totalItem = numberTest;
+      return Contact.find({})
+        .skip((page - 1) * ITEMS_PER_PAGE)
+        .limit(ITEMS_PER_PAGE);
+    }).then((contacts) => {
+      jade.renderFile('views/testContact.pug', { contactsReceived: contacts }, (err, html) => {
+        const pdfFilePath = './contacts.pdf';
+        const options = { format: 'Letter' };
+        pdf.create(html, options).toFile(pdfFilePath, (err, res2) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send('Some kind of error...');
+            return;
+          }
+          fs.readFile(pdfFilePath, (err, data) => {
+            transporter.sendMail({
+              to: recipientEmail,
+              from: name,
+              subject: 'Contact Page Information',
+              html: postMessage,
+              attachments: [{
+                filename: 'contacts.pdf',
+                content: data,
+                type: 'application/pdf',
+                disposition: 'attachment',
+                contentId: 'myId'
+              }],
+            });
+          });
+        });
+      });
+    });
+  res.render('send-email-page-contact', {
+    title: 'Email Page',
+    page
+  });
+  // res.send(`Working${page}${name}${recipientEmail}${postMessage}`);
 };

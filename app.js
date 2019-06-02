@@ -195,6 +195,12 @@ app.post('/contact/delete-page/:page', contactController.postDeletePageContact);
 app.post('/contact/save-page/:page', contactController.postSavePageContact);
 
 
+app.post('/contact/send-email-page/:page', contactController.postSendEmailPageContact);
+app.post('/contact/email-page/:page', contactController.postEmailPageContact);
+app.post('/contact/send-email/:id', contactController.postSendEmailContact);
+app.post('/contact/email/:id', contactController.postEmailContact);
+
+
 app.get('/eventDatabase', eventDatabaseController.getEventDatabase);
 app.get('/userDatabase', userDatabaseController.getUserDatabase);
 app.post('/event', eventController.postEvent);
@@ -202,6 +208,11 @@ app.post('/event/delete/:id', eventController.postDeleteEvent);
 app.post('/event/get-report/:id', eventController.postGetReportEvent);
 app.post('/event/delete-page/:page', eventController.postDeletePageEvent);
 app.post('/event/save-page/:page', eventController.postSavePageEvent);
+
+app.post('/event/send-email-page/:page', eventController.postSendEmailPageContact);
+app.post('/event/email-page/:page', eventController.postEmailPageEvent);
+app.post('/event/send-email/:id', eventController.postSendEmailEvent);
+app.post('/event/email/:id', eventController.postEmailEvent);
 
 app.get('/eventDatabase', eventDatabaseController.getEventDatabase);
 app.post('/event/edit/:id', eventController.postEditEvent);
@@ -269,5 +280,6 @@ module.exports = app;
   https://www.npmjs.com/package/html-pdf?activeTab=readme
   https://www.npmjs.com/package/pdfkit
   https://www.npmjs.com/package/jade
-
+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
+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
 */
