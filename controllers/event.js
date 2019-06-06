@@ -229,12 +229,15 @@ const sendgridTransport = require('nodemailer-sendgrid-transport');
 const Event = require('../models/Event');
 const Contact = require('../models/Contact');
 
-const transporter = nodemailer.createTransport(sendgridTransport({
-  auth: {
-    api_key: 'ENTER_YOUR_SENDGRID_API_KEY_HERE'
-  }
-}));
 
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+         user: 'youremail',
+         pass: 'yourpassword'
+     }
+ });
 
 exports.postSendEmailEvent = (req, res, next) => {
   const { id } = (req.params);
