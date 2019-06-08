@@ -132,25 +132,17 @@ block content
                   button.btn.btn-outline-secondary.border-left-0.border-0(type='button')
                     i.fa.fa-calendar.reservation-calendar
               .col-lg-6.d-flex.flex-column.mb-20
-                .nice-select.app-select.form-control(name='eventTime', tabindex='0')
-                  span.current Event Time
-                  ul.list
-                    li.option.selected(data-value='Project you want to donate', data-display='Project you want to donate')
-                      | Meal
-                      | Preferences
-                    li.option(data-value='1') 05pm
-                    li.option(data-value='2') 08pm
-                    li.option(data-value='3') 09pm
+                   select.form-control(name='eventTime')
+                      option.selected Event Time
+                      option 05pm
+                      option 08pm
+                      option 09pm
               .col-lg-6.d-flex.flex-column.mb-20
-                .nice-select.app-select.form-control(name='guest',tabindex='0')
-                  span.current Number of guests
-                  ul.list
-                    li.option.selected(data-value='Project you want to donate', data-display='Project you want to donate')
-                      | Number
-                      | of guests
-                    li.option(data-value='1') Number of guests 1
-                    li.option(data-value='2') Number of guests 2
-                    li.option(data-value='3') Number of guests 3
+                  select.form-control(name='guest')
+                      option.selected Number of guests
+                      option Number of guests 1
+                      option Number of guests 1
+                      option Number of guests 1
               .col-lg-6.d-flex.flex-column.mb-20
                 input.form-control(name='budget', placeholder='Budget', onfocus="this.placeholder = ''", onblur="this.placeholder = 'Budget'", required='', type='text')
               .col-lg-12.d-flex.flex-column.mb-20
